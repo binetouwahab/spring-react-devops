@@ -18,3 +18,4 @@ jobs:
 
       - name: Construire les services Docker
         run: docker compose build
+# petit test pour relancer le workflow
