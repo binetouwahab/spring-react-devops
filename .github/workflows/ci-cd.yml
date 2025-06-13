@@ -16,6 +16,18 @@ jobs:
       - name: Cloner le dépôt
         uses: actions/checkout@v3
 
-      - name: Construire les services Docker
-        run: docker compose build
-# petit test pour relancer le workflow
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build avec Docker Compose
+        run: docker compose -f docker-compose.yml build
+
+      - name: Lancer les services en arrière-plan
+        run: docker compose -f docker-compose.yml up -d
+
+      - name: Vérifier les services
+        run: docker compose ps
+
+      - name: Arrêter les services
+        if: always()
+        run: docker compose down
